@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +37,8 @@ class MainActivity : ComponentActivity() {
                 TxtField()
                 OutLineTxtField()
                 MyButton()
+                MyRadioGroup()
+                MyFloatingButton()
             }
 
         }
@@ -105,10 +109,49 @@ fun MyButton() {
         colors = ButtonDefaults.buttonColors(
             backgroundColor = colorResource(id = R.color.purple_200)
         )
-        ) {
+    ) {
         Text(text = "Click Here")
     }
 
+}
+
+@Composable
+fun MyRadioGroup() {
+
+    val radioButtons = listOf(0, 1, 2)
+
+    val selectedButton = remember {
+        mutableStateOf(radioButtons.first())
+    }
+
+    Column {
+
+        radioButtons.forEach { index ->
+            val isSelected = index == selectedButton.value
+
+            RadioButton(
+                selected = isSelected,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = colorResource(id = R.color.purple_500)
+                ),
+                onClick = { selectedButton.value = index }
+            )
+        }
+
+    }
+
+}
+
+@Composable
+fun MyFloatingButton() {
+    FloatingActionButton(
+        onClick = { },
+        contentColor = colorResource(id = R.color.purple_500),
+        backgroundColor = colorResource(id = R.color.black),
+        content = {
+            Icon(Icons.Filled.Favorite, "")
+        }
+    )
 }
 
 
